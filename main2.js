@@ -55,6 +55,21 @@ function createTodolist(title) {
     tasks = {...tasks, [newTodo.id]: []}
 }
 
+
+
+// изменение заголовка тудулиста
+function changeTodolistTitle(todolistId, newTitle){
+    todolist = todolist.map(tl => tl.id === todolistId ? {...tl, title: newTitle} : tl)
+}
+
+// функция удаления тудулиста
+function deleteTodolist (todolistId) {
+    todolist = todolist.filter(tl => tl.id !== todolistId)
+    const copyTasks = {...tasks}
+    delete copyTasks[todolistId]
+    tasks = copyTasks
+}
+
 //Положить таску тудулист , когда она появится
 function createTask(taskTitle, toodolistId) {
     const newTAsk = {
@@ -63,4 +78,15 @@ function createTask(taskTitle, toodolistId) {
         isDone: false
     }
     task = {...tasks, [todolistId]: [...tasks[todolistId], newTAsk]}
+}
+
+// удалить таску из тудулиста 
+function deleteTask(taskId, todolistId) {
+    tasks = {...tasks, [todolistId]: tasks[todolistId].filter(t => t.id !== taskId)}
+}
+
+
+// изменение статуса таски
+function changeTaskStatus (taskId, todolistId, newStatus) {
+    tasks = {...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, isDone:newStatus} : t)}
 }
